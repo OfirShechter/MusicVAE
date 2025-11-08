@@ -53,8 +53,8 @@ class HierarchicalDecoder(nn.Module):
         z = z.permute(1,0,2) # initial state expected to have shape of [num_layers, BATCH_SIZE, conductor_hidden_size] 
     
         # get embeddings from conductor
-        conductor_input = torch.zeros(size=(batch_size, 1, self.latent_dim))
-        embeddings = torch.empty(batch_size,16,self.latent_dim)
+        conductor_input = torch.zeros(size=(batch_size, 1, self.latent_dim), device=z.device) # initial input to conductor RNN is a zero vector
+        embeddings = torch.empty(batch_size,16,self.latent_dim, device=z.device)
         state = (z,z)
 
         outputs = []
